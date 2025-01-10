@@ -1,4 +1,5 @@
-import Questions from "@/components/questions";
+import Link from 'next/link'
+import Questions from "@/app/book/components/questions";
 
 export default async function BookDetail({ params }: { params: { id: string } }) {
   const { id } = await params
@@ -7,18 +8,23 @@ export default async function BookDetail({ params }: { params: { id: string } })
   const formattedText = book.content.replace(/\r\n/g, '<br />');
 
   return (
-    <div className="max-h-screen flex gap-x-3 p-5">
-      <div className="flex flex-col gap-y-3 w-1/2">
-        <section className="h-1/2 p-3 border-2 border-gray-400">
-          <h1 className="text-center">Metadata</h1>
-          <p>Author ...</p>
+    <div className="h-screen flex flex-col gap-x-3 p-4">
+      <Link className="flex" href="/book">Back to search</Link>
+      <div className="flex flex-1 gap-x-3 h-full">
+        <div className="flex flex-col gap-y-3 w-1/2">
+          <section className="h-fit p-3 border-2 border-gray-400">
+            <h1 className="text-center py-2">Metadata</h1>
+            <p>Title: {book.metadata.title}</p>
+            <p>Author: {book.metadata.author}</p>
+            <p>Language: {book.metadata.language}</p>
+          </section>
+          <Questions bookId={id}/>
+        </div>
+        <section className="flex flex-col w-1/2 p-3 border-2 border-gray-400 overflow-y-auto max-h-screen">
+          <h1 className="text-center py-2">Content</h1>
+          <div className="overflow-y-auto" dangerouslySetInnerHTML={{ __html: formattedText }} />
         </section>
-        <Questions bookId={id}/>
       </div>
-      <section className="flex flex-col w-1/2 p-3 border-2 border-gray-400">
-        <h1 className="text-center">Content</h1>
-        <div className="overflow-y-auto" dangerouslySetInnerHTML={{ __html: formattedText }} />
-      </section>
     </div>
   )
 }

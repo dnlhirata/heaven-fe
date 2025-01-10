@@ -10,8 +10,8 @@ export default function Questions({ bookId }: { bookId: string }) {
     setQuestions(data.questions)
   }
   return (
-      <section className="h-1/2 overflow-y-auto p-3 border-2 border-gray-400">
-        <h1 className="text-center">Question Generator</h1>
+      <section className="flex-1 h-auto overflow-y-auto p-3 border-2 border-gray-400">
+        <h1 className="text-center py-2">Question Generator</h1>
         <button className="bg-purple-950 px-2 py-1 rounded text-sm" onClick={generateQuestions}>Generate questions</button>
         <ol>
           {questions.map((question: string, index: number) => (<li className="py-1" key={index}>{question}</li>))}
