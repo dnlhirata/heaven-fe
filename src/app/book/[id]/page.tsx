@@ -1,9 +1,19 @@
+import { cookies } from 'next/headers';
 import Link from 'next/link'
 import Questions from "@/app/book/components/questions";
 
 export default async function BookDetail({ params }: { params: { id: string } }) {
+  const cookieStore = await cookies()
+  
+  const token = cookieStore.get('auth_token')
   const { id } = await params
-  const data = await fetch(`http://localhost:8000/api/books/${id}`)
+  const data = await fetch(`http://localhost:8000/api/books/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${token?.value}`
+    }
+  });
   const book = await data.json()
   const formattedText = book.content.replace(/\r\n/g, '<br />');
 
