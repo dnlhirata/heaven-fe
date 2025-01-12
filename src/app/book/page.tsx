@@ -12,7 +12,7 @@ export default async function SearchBook() {
     redirect('/');
   }
 
-  const userLastViewedBooks = await fetch(`${process.env.API_URL}/api/books/last_viewed`, {
+  const userLastViewedBooks = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/books/last_viewed`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

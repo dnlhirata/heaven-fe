@@ -13,7 +13,7 @@ export default async function BookDetail({ params }: { params: Promise<{ id: str
   }
   
   const { id } = await params
-  const response = await fetch(`${process.env.API_URL}/api/books/${id}`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/books/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
