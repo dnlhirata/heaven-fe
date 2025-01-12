@@ -1,13 +1,22 @@
 "use client"
 import { useState } from "react"
+import { getCookie } from 'cookies-next/client';
 
 export default function Questions({ bookId }: { bookId: string }) {
+  const token = getCookie('authToken')
+
   const [loading, setLoading] = useState(false)
   const [questions, setQuestions] = useState([])
 
   const generateQuestions = async () => {
     setLoading(true)
-    const response = await fetch(`http://localhost:8000/api/books/${bookId}/generate_questions/`)
+    const response = await fetch(`http://localhost:8000/api/books/${bookId}/generate_questions/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${token}`
+      }
+    })
     const data = await response.json()
     setQuestions(data.questions)
     setLoading(false)
