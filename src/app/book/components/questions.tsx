@@ -10,7 +10,7 @@ export default function Questions({ bookId }: { bookId: string }) {
 
   const generateQuestions = async () => {
     setLoading(true)
-    const response = await fetch(`http://localhost:8000/api/books/${bookId}/generate_questions/`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/books/${bookId}/generate_questions/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
