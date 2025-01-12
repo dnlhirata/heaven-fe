@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import SearchForm from './components/searchForm';
@@ -7,7 +8,11 @@ export default async function SearchBook() {
   const cookieStore = await cookies()  
   const token = cookieStore.get('auth_token')
 
-  const userLastViewedBooks = await fetch('http://localhost:8000/api/books/last_viewed', {
+  if (!token) {
+    redirect('/');
+  }
+
+  const userLastViewedBooks = await fetch(`${process.env.API_URL}/api/books/last_viewed`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

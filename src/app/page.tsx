@@ -11,7 +11,7 @@ export default function Login() {
   const handleLogin = async () => {
     if (!username || !password) return;
 
-    const response = await fetch('http://localhost:8000/api-token-auth/', {
+    const response = await fetch(`${process.env.API_URL}/api-token-auth/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),
