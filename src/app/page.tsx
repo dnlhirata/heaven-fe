@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react'
+import { setCookie } from 'cookies-next/client';
 
 export default function Login() {
   const router = useRouter();
@@ -11,9 +12,6 @@ export default function Login() {
   const handleLogin = async () => {
     if (!username || !password) return;
 
-    console.log(process.env.NEXT_PUBLIC_API_URL)
-
-
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api-token-auth/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -22,6 +20,9 @@ export default function Login() {
     });
 
     if (response.ok) {
+      const { token } = await response.json();
+      setCookie('authToken', token)
+      
       router.push('/book');
     } else {
       alert('Invalid username or password');

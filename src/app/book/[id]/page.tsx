@@ -6,7 +6,7 @@ import Questions from "@/app/book/components/questions";
 export default async function BookDetail({ params }: { params: Promise<{ id: string }> } ) {
   const cookieStore = await cookies()
   
-  const token = cookieStore.get('auth_token')
+  const token = cookieStore.get('authToken')
 
   if (!token) {
     redirect('/');

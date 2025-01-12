@@ -6,7 +6,7 @@ import { Book } from './types';
 
 export default async function SearchBook() {
   const cookieStore = await cookies()  
-  const token = cookieStore.get('auth_token')
+  const token = cookieStore.get('authToken')
 
   if (!token) {
     redirect('/');
